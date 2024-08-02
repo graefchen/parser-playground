@@ -3,38 +3,38 @@ NUMBER, PLUS, MINUS, STAR, SLASH, EOF = "NUMBER", "PLUS", "MINUS", "STAR", "SLAS
 
 class Token(object):
     """Token."""
-    def __init__(self, type, value):
+    def __init__(self, type: str, value: str) -> None:
         self.type = type
         self.value = value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'Token({type}, {value})'.format(type=self.type, value=repr(self.value))
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         return self.__str__()
 
 class Lexer(object):
     """Lexer."""
-    def __init__(self, text):
+    def __init__(self, text: str) -> None:
         self.text = text
         self.pos = 0
         self.current_char = self.text[self.pos]
 
-    def error(self):
+    def error(self) -> Exception:
         raise Exception("Invalide character")
 
-    def advance(self):
+    def advance(self) -> None:
         self.pos += 1
         if self.pos > len(self.text) - 1:
             self.current_char = None
         else:
             self.current_char = self.text[self.pos]
 
-    def skip_whitespace(self):
+    def skip_whitespace(self) -> None:
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
-    def number(self):
+    def number(self) -> None:
         result = ''
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
@@ -49,7 +49,7 @@ class Lexer(object):
 
         return float(result)
 
-    def get_next_token(self):
+    def get_next_token(self) -> Token:
 
         while self.current_char is not None:
             if self.current_char.isspace():

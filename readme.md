@@ -17,7 +17,7 @@ The test language tries to be implemented in a _simple_ calculator with followin
 ### Syntax _a_:
 
 ```
-expr   = number ("+" | "-" | "*" | "/") ( number | expr ) ;
+expr   = unary ("+" | "-" | "*" | "/") ( unary | expr ) ;
 unary  = "-" unary | number ;
 number = digit+ ( "." digit+ )? ;
 digit  = "0" ... "9" ;
@@ -27,7 +27,7 @@ digit  = "0" ... "9" ;
 ### Syntax _b_:
 
 ```
-expr   = (number | expr) ("+" | "-" | "*" | "/") number ;
+expr   = (unary| expr) ("+" | "-" | "*" | "/") unary ;
 unary  = "-" unary | number ;
 number = digit+ ( "." digit+ )? ;
 digit  = "0" ... "9" ;
@@ -38,35 +38,24 @@ Allowed examples:
 
 ```
 1 + 2 * 3
-
 4 * 5 + 1 - 1
-
 4 - 2 - 2
-
 -15 + 15 * 2
-
 2 / 2 + 2
 ```
 
 ## Parsers:
 
-### API:
-
-```
-printAST() -> printing the Abstract Syntax Tree
-```
-
 ### Implemented:
 
 - Top-down:
-  - (empty)
+  - Recursive decent parsing
 - Bottom-up:
   - (empty)
 
 ### To Implement:
 
 - Top-down:
-  - Recursive decent parsing
   - Pratt parsing
   - Packrat parsing
   - PEG parsing
